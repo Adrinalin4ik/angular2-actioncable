@@ -2,7 +2,7 @@
   "name": "angular2-actioncable",
   "version": "1.1.5",
   "description": "Simple and flexible integration for ActionCable and Angular2/4/5+ applications",
-  "main": "angular2-actioncable.js",
+  "main": "dist/angular2-actioncable.js",
   "scripts": {
     "build": "ng-packagr"
   },
