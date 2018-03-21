@@ -1,5 +1,5 @@
 import * as ActionCableNs from 'actioncable';
-import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 const ActionCable = ActionCableNs;
 
@@ -29,36 +29,31 @@ export class Channel {
    * Once a channel subscription is created, the messages Observable will emit any messages the channel receives.
    * For easy clean-up, when this Observable is completed the ActionCable channel will also be closed.
    */
-  messages: Observable<any>
+  messages: BehaviorSubject<any> = new BehaviorSubject({});
   baseChannel: any;
-  onopen: Observable<any>;
-  onclose: Observable<any>;
-  onerror: Observable<any>;
-  onconnected: Observable<any>;
+  onopen: BehaviorSubject<any> = new BehaviorSubject({});
+  onclose: BehaviorSubject<any> = new BehaviorSubject({});
+  onerror: BehaviorSubject<any> = new BehaviorSubject({});
+  onconnected: BehaviorSubject<any> = new BehaviorSubject({});
   
   constructor(public cable: Cable, public name: string, public params = {}) {
     console.warn("NEW")
     const channelParams = Object.assign({}, params, {channel: name});
     this.baseChannel = this.cable.baseCable.subscriptions.create(channelParams, {
       received: (data: any) => { 
-        this.messages = Observable.create(observer => observer.next(data));
-        return () => this.unsubscribe();
+        this.messages.next(data);
       },
       connected: (data: any) => { 
-        this.onconnected = Observable.create(observer => observer.next(data));
-        return () => this.unsubscribe();
+        this.onconnected.next(data);
       },
       open: (data: any) => { 
-        this.onopen = Observable.create(observer => observer.next(data));
-        return () => this.unsubscribe();
+        this.onopen.next(data);
       },
       close: (data: any) => { 
-        this.onclose = Observable.create(observer => observer.next(data));
-        return () => this.unsubscribe();
+        this.onclose.next(data);
       },
       error: (data: any) => { 
-        this.onerror = Observable.create(observer => observer.next(data));
-        return () => this.unsubscribe();
+        this.onerror.next(data);
       }
     });
     //return () => this.unsubscribe();
