@@ -46,7 +46,7 @@ var Channel = /** @class */ (function () {
          * For easy clean-up, when this Observable is completed the ActionCable channel will also be closed.
          */
         this.messages = new BehaviorSubject$1({});
-        this.onopen = new BehaviorSubject$1({});
+        this.onrejected = new BehaviorSubject$1({});
         this.onclose = new BehaviorSubject$1({});
         this.onerror = new BehaviorSubject$1({});
         this.onconnected = new BehaviorSubject$1({});
@@ -60,7 +60,7 @@ var Channel = /** @class */ (function () {
                 _this.onconnected.next(data);
             },
             open: function (data) {
-                _this.onopen.next(data);
+                _this.onrejected.next(data);
             },
             close: function (data) {
                 _this.onclose.next(data);

@@ -31,7 +31,7 @@ export class Channel {
    */
   messages: BehaviorSubject<any> = new BehaviorSubject({});
   baseChannel: any;
-  onopen: BehaviorSubject<any> = new BehaviorSubject({});
+  onrejected: BehaviorSubject<any> = new BehaviorSubject({});
   onclose: BehaviorSubject<any> = new BehaviorSubject({});
   onerror: BehaviorSubject<any> = new BehaviorSubject({});
   onconnected: BehaviorSubject<any> = new BehaviorSubject({});
@@ -47,7 +47,7 @@ export class Channel {
         this.onconnected.next(data);
       },
       open: (data: any) => { 
-        this.onopen.next(data);
+        this.onrejected.next(data);
       },
       close: (data: any) => { 
         this.onclose.next(data);

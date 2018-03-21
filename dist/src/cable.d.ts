@@ -22,7 +22,7 @@ export declare class Channel {
      */
     messages: BehaviorSubject<any>;
     baseChannel: any;
-    onopen: BehaviorSubject<any>;
+    onrejected: BehaviorSubject<any>;
     onclose: BehaviorSubject<any>;
     onerror: BehaviorSubject<any>;
     onconnected: BehaviorSubject<any>;
