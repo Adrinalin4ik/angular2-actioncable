@@ -53,6 +53,7 @@ var Channel = /** @class */ (function () {
         this.onclose = new BehaviorSubject.BehaviorSubject({});
         this.onerror = new BehaviorSubject.BehaviorSubject({});
         this.onconnected = new BehaviorSubject.BehaviorSubject({});
+        this.ondisconnected = new BehaviorSubject.BehaviorSubject({});
         console.warn("NEW");
         var channelParams = Object.assign({}, params, { channel: name });
         this.baseChannel = this.cable.baseCable.subscriptions.create(channelParams, {
@@ -61,6 +62,9 @@ var Channel = /** @class */ (function () {
             },
             connected: function (data) {
                 _this.onconnected.next(data);
+            },
+            disconnected: function (data) {
+                _this.ondisconnected.next(data);
             },
             open: function (data) {
                 _this.onrejected.next(data);

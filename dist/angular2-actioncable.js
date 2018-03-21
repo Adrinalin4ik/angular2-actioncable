@@ -47,6 +47,7 @@ class Channel {
         this.onclose = new BehaviorSubject$1({});
         this.onerror = new BehaviorSubject$1({});
         this.onconnected = new BehaviorSubject$1({});
+        this.ondisconnected = new BehaviorSubject$1({});
         console.warn("NEW");
         const channelParams = Object.assign({}, params, { channel: name });
         this.baseChannel = this.cable.baseCable.subscriptions.create(channelParams, {
@@ -55,6 +56,9 @@ class Channel {
             },
             connected: (data) => {
                 this.onconnected.next(data);
+            },
+            disconnected: (data) => {
+                this.ondisconnected.next(data);
             },
             open: (data) => {
                 this.onrejected.next(data);

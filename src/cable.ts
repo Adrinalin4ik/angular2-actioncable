@@ -35,6 +35,7 @@ export class Channel {
   onclose: BehaviorSubject<any> = new BehaviorSubject({});
   onerror: BehaviorSubject<any> = new BehaviorSubject({});
   onconnected: BehaviorSubject<any> = new BehaviorSubject({});
+  ondisconnected: BehaviorSubject<any> = new BehaviorSubject({});
   
   constructor(public cable: Cable, public name: string, public params = {}) {
     console.warn("NEW")
@@ -45,6 +46,9 @@ export class Channel {
       },
       connected: (data: any) => { 
         this.onconnected.next(data);
+      },
+      disconnected: (data: any) => { 
+        this.ondisconnected.next(data);
       },
       open: (data: any) => { 
         this.onrejected.next(data);

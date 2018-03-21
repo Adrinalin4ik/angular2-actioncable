@@ -26,6 +26,7 @@ export declare class Channel {
     onclose: BehaviorSubject<any>;
     onerror: BehaviorSubject<any>;
     onconnected: BehaviorSubject<any>;
+    ondisconnected: BehaviorSubject<any>;
     constructor(cable: Cable, name: string, params?: {});
     /**
      * Close the connection.
